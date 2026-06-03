@@ -1,0 +1,15 @@
+# 1. 导入 Oversee 镜像
+docker load -i oversee-v1.tar
+
+# 2. 将镜像加载到 Minikube 内部
+minikube image load oversee:v1
+
+# 3. 部署 Oversee 到 Kubernetes
+kubectl apply -f k8s/
+
+# 4. 验证服务状态
+kubectl get pods -l app=oversee
+kubectl get svc oversee
+
+# 5. （可选）在本地浏览器打开服务
+minikube service oversee

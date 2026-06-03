@@ -1,0 +1,7 @@
+com\example\oversee\config\ServiceConfig$Service.class
+com\example\oversee\service\MonitorService.class
+com\example\oversee\config\OnlineBoutiqueConfig$ServiceInfo.class
+com\example\oversee\OverseeApplication.class
+com\example\oversee\config\OnlineBoutiqueConfig.class
+com\example\oversee\config\ServiceConfig.class
+com\example\oversee\service\MonitorService$1.class

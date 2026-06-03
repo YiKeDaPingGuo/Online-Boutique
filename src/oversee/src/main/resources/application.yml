@@ -1,0 +1,76 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: oversee
+
+# 暴露 Prometheus 端点 + 关闭 Redis 健康检查
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoint:
+    health:
+      show-details: always
+  health:
+    redis:
+      enabled: false  #关闭Redis健康检查
+
+# Online-Boutique 服务列表
+online:
+  boutique:
+    services:
+      # HTTP
+      - name: frontend
+        protocol: http
+        host: frontend
+        port: 80
+
+      # gRPC
+      - name: productcatalogservice
+        protocol: grpc
+        host: productcatalogservice
+        port: 3550
+      - name: cartservice
+        protocol: grpc
+        host: cartservice
+        port: 7070
+      - name: checkoutservice
+        protocol: grpc
+        host: checkoutservice
+        port: 5050
+      - name: recommendationservice
+        protocol: grpc
+        host: recommendationservice
+        port: 8080
+      - name: paymentservice
+        protocol: grpc
+        host: paymentservice
+        port: 50051
+      - name: emailservice
+        protocol: grpc
+        host: emailservice
+        port: 8080
+      - name: currencyservice
+        protocol: grpc
+        host: currencyservice
+        port: 7000
+      - name: shippingservice
+        protocol: grpc
+        host: shippingservice
+        port: 50050
+      - name: adservice
+        protocol: grpc
+        host: adservice
+        port: 9555
+
+      #redis
+      - name: redis-cart
+        protocol: redis
+        host: redis-cart
+        port: 6379
