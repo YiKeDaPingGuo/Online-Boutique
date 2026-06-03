@@ -46,6 +46,8 @@ build:
     context: src/frontend
   - image: adservice
     context: src/adservice
+  - image: aiopsagent
+    context: src/aiopsagent
   tagPolicy:
     gitCommit: {}
   local:

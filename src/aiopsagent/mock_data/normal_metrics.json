@@ -1,0 +1,29 @@
+[
+  {
+    "timestamp": "2026-05-24T10:00:00Z",
+    "service": "frontend",
+    "namespace": "online-boutique",
+    "metrics": {
+      "cpu_usage": 0.35,
+      "memory_usage": 0.48,
+      "request_latency_p95": 220,
+      "error_rate": 0.01,
+      "request_rate": 100,
+      "pod_ready": 1
+    }
+  },
+  {
+    "timestamp": "2026-05-24T10:00:00Z",
+    "service": "recommendationservice",
+    "namespace": "online-boutique",
+    "metrics": {
+      "cpu_usage": 0.44,
+      "memory_usage": 0.55,
+      "request_latency_p95": 260,
+      "error_rate": 0.01,
+      "request_rate": 70,
+      "pod_ready": 1
+    }
+  }
+]
+

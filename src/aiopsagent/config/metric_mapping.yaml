@@ -1,0 +1,25 @@
+metrics:
+  cpu_usage:
+    query: |
+      sum(rate(container_cpu_usage_seconds_total{namespace="$namespace", pod=~"$service.*"}[5m]))
+
+  memory_usage:
+    query: |
+      sum(container_memory_working_set_bytes{namespace="$namespace", pod=~"$service.*"})
+      /
+      sum(kube_pod_container_resource_limits{namespace="$namespace", pod=~"$service.*", resource="memory"})
+
+  pod_ready:
+    query: |
+      min(kube_pod_status_ready{namespace="$namespace", condition="true", pod=~"$service.*"})
+
+  request_latency_p95:
+    query: |
+      histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{namespace="$namespace", service="$service"}[5m])) by (le))
+
+  error_rate:
+    query: |
+      sum(rate(http_requests_total{namespace="$namespace", service="$service", status=~"5.."}[5m]))
+      /
+      sum(rate(http_requests_total{namespace="$namespace", service="$service"}[5m]))
+
