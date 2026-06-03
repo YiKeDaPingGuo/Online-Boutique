@@ -1,0 +1,45 @@
+project_name: AIOps Agent for Online Boutique
+window_minutes: 10
+top_k: 3
+
+services:
+  - frontend
+  - recommendationservice
+  - cartservice
+
+datasource:
+  type: csv
+  csv_file: mock_data/sample_metrics.csv
+
+kubernetes:
+  namespace: default
+
+chaosmesh:
+  namespace: chaos-mesh
+  experiment_namespace: default
+  known_experiments:
+    recommendationservice: recommendation-delay
+
+llm:
+  enabled: false
+  provider: volcengine-ark
+  base_url: https://ark.cn-beijing.volces.com/api/v3
+  api_key_env: ARK_API_KEY
+  model: ep-20260528104127-tn2f7
+  temperature: 0.2
+
+detector:
+  type: rule
+  thresholds:
+    cpu_usage: 0.8
+    memory_usage: 0.8
+    request_latency_p95: 500
+    error_rate: 0.05
+    pod_ready: 0.5
+
+remediation:
+  mode: dry-run
+  require_confirm: true
+
+output:
+  dir: /tmp/aiopsagent

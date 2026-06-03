@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aiopsagent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aiopsagent
+  template:
+    metadata:
+      labels:
+        app: aiopsagent
+    spec:
+      containers:
+        - name: aiopsagent
+          image: aiopsagent
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PORT
+              value: "8080"
+            - name: AIOPS_CONFIG
+              value: config/online_boutique.yaml
+            - name: ARK_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aiopsagent-ark
+                  key: ARK_API_KEY
+                  optional: true
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aiopsagent
+spec:
+  selector:
+    app: aiopsagent
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: ClusterIP

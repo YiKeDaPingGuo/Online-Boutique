@@ -1,0 +1,5 @@
+timestamp,service,namespace,cpu_usage,memory_usage,request_latency_p95,error_rate,request_rate,pod_ready
+2026-05-24T10:00:00Z,frontend,online-boutique,0.42,0.51,680,0.03,130,1
+2026-05-24T10:00:00Z,recommendationservice,online-boutique,0.71,0.62,1450,0.11,92,1
+2026-05-24T10:00:00Z,cartservice,online-boutique,0.31,0.47,260,0.01,64,1
+

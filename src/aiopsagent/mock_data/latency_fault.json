@@ -1,0 +1,68 @@
+[
+  {
+    "timestamp": "2026-05-24T10:00:00Z",
+    "service": "frontend",
+    "namespace": "online-boutique",
+    "metrics": {
+      "cpu_usage": 0.42,
+      "memory_usage": 0.51,
+      "request_latency_p95": 680,
+      "error_rate": 0.03,
+      "request_rate": 130,
+      "pod_ready": 1
+    }
+  },
+  {
+    "timestamp": "2026-05-24T10:00:00Z",
+    "service": "recommendationservice",
+    "namespace": "online-boutique",
+    "metrics": {
+      "cpu_usage": 0.71,
+      "memory_usage": 0.62,
+      "request_latency_p95": 1450,
+      "error_rate": 0.11,
+      "request_rate": 92,
+      "pod_ready": 1
+    }
+  },
+  {
+    "timestamp": "2026-05-24T10:00:00Z",
+    "service": "cartservice",
+    "namespace": "online-boutique",
+    "metrics": {
+      "cpu_usage": 0.31,
+      "memory_usage": 0.47,
+      "request_latency_p95": 260,
+      "error_rate": 0.01,
+      "request_rate": 64,
+      "pod_ready": 1
+    }
+  },
+  {
+    "timestamp": "2026-05-24T10:00:00Z",
+    "service": "checkoutservice",
+    "namespace": "online-boutique",
+    "metrics": {
+      "cpu_usage": 0.36,
+      "memory_usage": 0.52,
+      "request_latency_p95": 320,
+      "error_rate": 0.02,
+      "request_rate": 44,
+      "pod_ready": 1
+    }
+  },
+  {
+    "timestamp": "2026-05-24T10:00:00Z",
+    "service": "productcatalogservice",
+    "namespace": "online-boutique",
+    "metrics": {
+      "cpu_usage": 0.26,
+      "memory_usage": 0.39,
+      "request_latency_p95": 210,
+      "error_rate": 0.0,
+      "request_rate": 88,
+      "pod_ready": 1
+    }
+  }
+]
+

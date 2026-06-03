@@ -1,4 +1,5 @@
 .DS_Store
+.env
 .eclipse.buildship.core.prefs
 .gradle/
 .idea/

@@ -27,6 +27,24 @@ microservices](/docs/img/architecture-diagram.png)](/docs/img/architecture-diagr
 | [recommendationservice](/src/recommendationservice) | Python        | 根据购物车中的内容推荐其他产品。                              |
 | [adservice](/src/adservice)                         | Java          | 根据给定的上下文词提供文字广告。                              |
 | [loadgenerator](/src/loadgenerator)                 | Python/Locust | 持续向前端发送模拟真实用户购物流程的请求。                         |
+| [aiopsagent](/src/aiopsagent)                       | Python        | 基于 LangGraph 的智能运维 Agent，接入 Prometheus/Mock/CSV 指标，输出根因分析、dry-run 恢复建议和预留 REST 接口。 |
+
+## AIOps Agent 接入
+
+本仓库已预留 `aiopsagent` 微服务，默认通过 `http://aiopsagent` 在集群内提供 REST 接口：
+
+- `GET /healthz`: 健康检查。
+- `GET /readyz`: 配置加载检查。
+- `POST /api/v1/preflight`: 数据源和配置预检。
+- `POST /api/v1/diagnose`: 运行一次诊断。
+- `POST /api/v1/events`: 为 `oversee`、压测工具和后续测试模块预留的事件入口。
+
+如需启用火山方舟模型总结，先创建 Kubernetes Secret：
+
+```sh
+kubectl create secret generic aiopsagent-ark \
+  --from-literal=ARK_API_KEY="$ARK_API_KEY"
+```
 
 ## 截图
 

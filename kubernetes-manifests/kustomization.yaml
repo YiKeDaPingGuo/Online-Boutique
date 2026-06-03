@@ -26,6 +26,7 @@ resources:
  - productcatalogservice.yaml
  - recommendationservice.yaml
  - shippingservice.yaml
+ - aiopsagent.yaml
  - deployment.yaml
  - service.yaml
 # components:
