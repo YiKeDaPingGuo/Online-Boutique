@@ -1,0 +1,2 @@
+model_checkpoint_path: "D:\\microservices-demo\\paper_reproduce\\omnianomaly_kdd19\\model\\variables.dat"
+all_model_checkpoint_paths: "D:\\microservices-demo\\paper_reproduce\\omnianomaly_kdd19\\model\\variables.dat"

@@ -1,0 +1,21 @@
+{
+  "mode": "live",
+  "interval_seconds": 15,
+  "rounds": 1887,
+  "total_rows": 792857,
+  "start_time": "2026-06-05T14:26:28.861506",
+  "end_time": "2026-06-05T13:52:13.178017+00:00",
+  "duration_minutes": 445.7386169830958,
+  "prometheus_url": "http://localhost:9090",
+  "metrics": [
+    "cpu_rate",
+    "memory_working_set",
+    "memory_rss",
+    "fs_reads_bytes_rate",
+    "fs_writes_bytes_rate",
+    "fs_reads_total",
+    "fs_writes_total",
+    "pod_status_phase",
+    "pod_restarts"
+  ]
+}
