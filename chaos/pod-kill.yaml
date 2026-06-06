@@ -1,0 +1,33 @@
+# Schedule + PodChaos：每 5 分钟定时杀死一个 Pod
+apiVersion: chaos-mesh.org/v1alpha1
+kind: Schedule
+metadata:
+  name: schedule-pod-kill-every-5min
+  namespace: default
+spec:
+  schedule: "@every 5m"
+  type: "PodChaos"
+  historyLimit: 5
+  concurrencyPolicy: Forbid
+  podChaos:
+    action: pod-kill
+    mode: one
+    duration: 30s
+    selector:
+      namespaces:
+        - default
+---
+# 一次性杀死 frontend Pod 实验（手动触发）
+apiVersion: chaos-mesh.org/v1alpha1
+kind: PodChaos
+metadata:
+  name: pod-kill-frontend-once
+  namespace: default
+spec:
+  action: pod-kill
+  mode: one
+  selector:
+    namespaces:
+      - default
+    labelSelectors:
+      app: frontend
