@@ -1,0 +1,11 @@
+rank,feature,mean_score
+1,checkoutservice_net_rx,10986.8271484375
+2,frontend_net_rx,7963.20458984375
+3,productcatalogservice_net_rx,7543.27490234375
+4,cartservice_mem,832.9500122070312
+5,shippingservice_net_rx,27.94268226623535
+6,recommendationservice_net_tx,20.84388542175293
+7,emailservice_net_tx,18.101354598999023
+8,shippingservice_net_tx,18.0198974609375
+9,productcatalogservice_net_tx,17.605165481567383
+10,checkoutservice_net_tx,17.177141189575195

@@ -1,0 +1,4 @@
+# Selenium dependencies for phase 3 functional testing.
+selenium>=4.15.0
+pytest>=7.4.0
+webdriver-manager>=4.0.0

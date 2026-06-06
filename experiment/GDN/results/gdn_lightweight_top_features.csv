@@ -1,0 +1,11 @@
+rank,feature,mean_score
+1,emailservice_mem,1628.57568359375
+2,cartservice_mem,108.40736389160156
+3,recommendationservice_mem,76.93926239013672
+4,productcatalogservice_mem,35.05738830566406
+5,paymentservice_mem,29.443897247314453
+6,adservice_mem,24.00175666809082
+7,frontend_cpu,23.361026763916016
+8,emailservice_cpu,20.861623764038086
+9,currencyservice_mem,20.399709701538086
+10,frontend_mem,18.87576675415039
