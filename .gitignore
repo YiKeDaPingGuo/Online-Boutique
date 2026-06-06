@@ -27,3 +27,4 @@ obj/
 pkg/
 release/wi-kubernetes-manifests.yaml
 vendor/
+k8s_metrics_round2.csv
