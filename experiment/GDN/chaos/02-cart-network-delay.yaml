@@ -1,0 +1,18 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: cart-network-delay
+  namespace: onlineboutique
+spec:
+  action: delay
+  mode: one
+  selector:
+    namespaces:
+      - onlineboutique
+    labelSelectors:
+      app: cartservice
+  delay:
+    latency: "500ms"
+    correlation: "100"
+    jitter: "100ms"
+  duration: "5m"
