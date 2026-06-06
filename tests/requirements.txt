@@ -1,0 +1,5 @@
+# Selenium 功能测试依赖
+# pip install -r requirements.txt
+pytest==8.3.4
+selenium==4.27.1
+webdriver-manager==4.0.2
