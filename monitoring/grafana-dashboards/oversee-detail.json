@@ -1,0 +1,80 @@
+{
+  "dashboard": {
+    "title": "Oversee 服务详细监控",
+    "tags": ["oversee", "jvm"],
+    "timezone": "browser",
+    "style": "dark",
+    "editable": true,
+    "refresh": "15s",
+    "time": { "from": "now-15m", "to": "now" },
+    "templating": { "list": [] },
+    "panels": [
+      {
+        "id": 1, "title": "JVM 堆内存", "type": "stat", "gridPos": { "h": 4, "w": 4, "x": 0, "y": 0 }, "datasource": "Prometheus",
+        "targets": [ { "expr": "sum(jvm_memory_used_bytes{area=\"heap\"})", "legendFormat": "堆", "refId": "A" } ],
+        "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "unit": "bytes", "thresholds": { "steps": [ { "color": "#299c46" }, { "value": 100000000, "color": "#e0b340" }, { "value": 200000000, "color": "#e02b44" } ] } } }
+      },
+      {
+        "id": 2, "title": "JVM 非堆内存", "type": "stat", "gridPos": { "h": 4, "w": 4, "x": 4, "y": 0 }, "datasource": "Prometheus",
+        "targets": [ { "expr": "sum(jvm_memory_used_bytes{area=\"nonheap\"})", "legendFormat": "非堆", "refId": "A" } ],
+        "fieldConfig": { "defaults": { "color": { "mode": "fixed" }, "unit": "bytes" } }
+      },
+      {
+        "id": 3, "title": "GC 总次数", "type": "stat", "gridPos": { "h": 4, "w": 4, "x": 8, "y": 0 }, "datasource": "Prometheus",
+        "targets": [ { "expr": "sum(jvm_gc_collection_seconds_count)", "legendFormat": "GC", "refId": "A" } ],
+        "fieldConfig": { "defaults": { "color": { "mode": "fixed" }, "unit": "none" } }
+      },
+      {
+        "id": 4, "title": "已加载类数", "type": "stat", "gridPos": { "h": 4, "w": 4, "x": 12, "y": 0 }, "datasource": "Prometheus",
+        "targets": [ { "expr": "jvm_classes_loaded_classes", "legendFormat": "类", "refId": "A" } ],
+        "fieldConfig": { "defaults": { "color": { "mode": "fixed" }, "unit": "none" } }
+      },
+      {
+        "id": 5, "title": "活跃线程数", "type": "stat", "gridPos": { "h": 4, "w": 4, "x": 16, "y": 0 }, "datasource": "Prometheus",
+        "targets": [ { "expr": "jvm_threads_live_threads", "legendFormat": "线程", "refId": "A" } ],
+        "fieldConfig": { "defaults": { "color": { "mode": "fixed" }, "unit": "none" } }
+      },
+      {
+        "id": 6, "title": "堆内存分区", "type": "timeseries", "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 }, "datasource": "Prometheus",
+        "targets": [ { "expr": "jvm_memory_used_bytes{area=\"heap\"}", "legendFormat": "{{id}}", "refId": "A" } ],
+        "fieldConfig": { "defaults": { "unit": "bytes", "custom": { "fillOpacity": 30, "stacking": { "mode": "normal" }, "lineInterpolation": "smooth" } } },
+        "options": { "legend": { "calcs": ["mean", "last", "max"], "displayMode": "table", "placement": "bottom" } }
+      },
+      {
+        "id": 7, "title": "非堆内存分区", "type": "timeseries", "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 }, "datasource": "Prometheus",
+        "targets": [ { "expr": "jvm_memory_used_bytes{area=\"nonheap\"}", "legendFormat": "{{id}}", "refId": "A" } ],
+        "fieldConfig": { "defaults": { "unit": "bytes", "custom": { "fillOpacity": 30, "stacking": { "mode": "normal" }, "lineInterpolation": "smooth" } } },
+        "options": { "legend": { "calcs": ["mean", "last", "max"], "displayMode": "table", "placement": "bottom" } }
+      },
+      {
+        "id": 8, "title": "GC 暂停时间", "type": "timeseries", "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 }, "datasource": "Prometheus",
+        "targets": [ { "expr": "rate(jvm_gc_pause_seconds_sum[1m])", "legendFormat": "{{action}} - {{cause}}", "refId": "A" } ],
+        "fieldConfig": { "defaults": { "unit": "s", "custom": { "fillOpacity": 30, "lineInterpolation": "smooth" } } },
+        "options": { "legend": { "calcs": ["mean", "last", "max"], "displayMode": "table", "placement": "bottom" } }
+      },
+      {
+        "id": 9, "title": "线程状态", "type": "timeseries", "gridPos": { "h": 8, "w": 12, "x": 12, "y": 12 }, "datasource": "Prometheus",
+        "targets": [
+          { "expr": "jvm_threads_live_threads", "legendFormat": "活跃", "refId": "A" },
+          { "expr": "jvm_threads_daemon_threads", "legendFormat": "守护", "refId": "B" },
+          { "expr": "jvm_threads_peak_threads", "legendFormat": "峰值", "refId": "C" }
+        ],
+        "fieldConfig": { "defaults": { "unit": "none", "custom": { "fillOpacity": 30, "lineInterpolation": "smooth" } } },
+        "options": { "legend": { "calcs": ["mean", "last", "max"], "displayMode": "table", "placement": "bottom" } }
+      },
+      {
+        "id": 10, "title": "日志事件", "type": "timeseries", "gridPos": { "h": 8, "w": 12, "x": 0, "y": 20 }, "datasource": "Prometheus",
+        "targets": [
+          { "expr": "rate(logback_events_total{level=\"error\"}[1m])", "legendFormat": "ERROR", "refId": "A" },
+          { "expr": "rate(logback_events_total{level=\"warn\"}[1m])", "legendFormat": "WARN", "refId": "B" },
+          { "expr": "rate(logback_events_total{level=\"info\"}[1m])", "legendFormat": "INFO", "refId": "C" }
+        ],
+        "fieldConfig": { "defaults": { "unit": "none", "custom": { "fillOpacity": 30, "lineInterpolation": "smooth" } } },
+        "options": { "legend": { "calcs": ["mean", "last", "max"], "displayMode": "table", "placement": "bottom" } }
+      }
+    ],
+    "schemaVersion": 27,
+    "version": 1
+  },
+  "overwrite": true
+}
