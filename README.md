@@ -46,6 +46,50 @@ kubectl create secret generic aiopsagent-ark \
   --from-literal=ARK_API_KEY="$ARK_API_KEY"
 ```
 
+## 本项目新增内容
+
+本仓库在原始 Online Boutique 微服务演示项目基础上，补充了面向软件测试与维护课程大作业的 AIOps、监控、故障注入、自动化测试和论文复现实验能力。新增内容集中放在以下目录，便于不同组员独立开发、复现和后续对接。
+
+### 智能运维 Agent
+
+- `src/aiopsagent/`: 基于 LangGraph 的 AIOps Agent 微服务，支持从 Prometheus、CSV 和 Mock 数据源采集指标。
+- `src/aiopsagent/service.py`: 提供 REST 接口，包括健康检查、配置预检、诊断执行和事件接入。
+- `src/aiopsagent/aiops_agent/`: Agent 核心逻辑，包含指标采集、异常检测、根因分析、恢复计划、dry-run 执行和报告生成。
+- `kubernetes-manifests/aiopsagent.yaml`: AIOps Agent 在 Kubernetes 中的部署配置。
+
+### 监控与辅助服务
+
+- `src/oversee/`: 新增的 oversee 监控辅助微服务，用于对 Online Boutique 各服务状态进行采集和汇总。
+- `monitoring/prometheus/prometheus-config.yaml`: Prometheus 抓取配置。
+- `monitoring/grafana-dashboards/`: Grafana 仪表盘配置，包含 Kubernetes 集群监控和 oversee 详情面板。
+
+### 故障注入
+
+- `chaos/`: ChaosMesh 故障注入配置，覆盖 Pod 宕机、网络延迟和 CPU 压力等典型场景。
+- `experiment/GDN/chaos/`: GDN 复现实验配套的故障注入配置，面向 frontend、cartservice、productcatalogservice 等服务构造实验数据。
+
+### 自动化测试与性能测量
+
+- `tests/test_homepage.py`: 首页可用性与基础交互测试。
+- `tests/test_cart.py`: 购物车流程测试。
+- `tests/test_checkout.py`: 下单结算流程测试。
+- `tests/manual_perf_measure.py`: 手动性能测量脚本，用于记录关键页面和流程耗时。
+- `experiment/GDN/tests/selenium/`: GDN 实验配套的 Selenium 端到端测试。
+- `experiment/GDN/tests/jmeter/`: GDN 实验配套的 JMeter 压测脚本。
+
+### 论文复现实验
+
+- `paper_reproduce/omnianomaly_kdd19/`: OmniAnomaly 论文复现实验，包含模型代码、SMD 数据集、Online Boutique 指标采集与预处理脚本、训练结果、图表和实验报告。
+- `experiment/GDN/`: GDN 论文复现实验，包含实验说明、数据处理脚本、故障数据、运行脚本、实验结果和面向 Agent 的接口说明。
+- `paper_reproduce/JumpStarter/`: JumpStarter 论文复现实验，包含算法代码、检测器、Online Boutique 复现流程、数据集、处理脚本、实验结果和 Agent 对接文档。
+
+### 对接文档
+
+- `experiment/GDN/GDN-AGENT-INTERFACE.md`: GDN 实验结果接入 AIOps Agent 的接口说明。
+- `paper_reproduce/JumpStarter/docs/JUMPSTARTER-AGENT-INTERFACE.md`: JumpStarter 实验结果接入 AIOps Agent 的接口说明。
+- `paper_reproduce/JumpStarter/docs/PROJECT-JUMPSTARTER.md`: JumpStarter 复现实验项目说明。
+- `paper_reproduce/JumpStarter/docs/REPRODUCTION-OVERVIEW.md`: JumpStarter 复现流程总览。
+
 ## 截图
 
 | 首页                                                                                                                    | 结算页                                                                                                                   |
