@@ -1,0 +1,42 @@
+﻿sample_score_method:
+  lesinn:
+    phi: 10
+    t: 5
+  moving_average:
+    window: 5
+    stride: 1
+anomaly_scoring:
+  anomaly_score_example:
+    percentage: 90
+    topn: 2
+global:
+  random_state: 42
+data:
+  path: '../mydata/external/ll_data/processed/data/normal_train.csv'
+  label_path: '../mydata/external/ll_data/processed/label/normal_train.csv'
+  save_path: '../mydata/external/ll_data/processed/result/normal_train'
+  row_begin: 0
+  row_end: 61
+  col_begin: 0
+  col_end: 22
+  rec_windows_per_cycle: 3
+  header: null
+  reconstruct:
+    window: 5
+    stride: 5
+  detect:
+    window: 5
+    stride: 1
+detector_arguments:
+  workers: 1
+  anomaly_scoring: 'anomaly_score_example'
+  sample_score_method: 'moving_average_score'
+  cluster_threshold: 0.01
+  sample_rate: 0.6
+  latest_windows: 5
+  scale: 5
+  rho: 0.1
+  sigma: 0.5
+  retry_limit: 10
+  without_grouping: one_by_one
+  without_localize_sampling: true

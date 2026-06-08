@@ -1,0 +1,12 @@
+dataset,parts,rows,columns,positive_labels,start_time,end_time,missing_values_before_fill
+normal_valid,normal_valid,60,44,0,2026-06-07 13:03:16,2026-06-07 13:32:46,0.0
+fault_cpu_frontend,fault_cpu_frontend,100,44,23,2026-06-07 14:13:22,2026-06-07 15:02:53,0.0
+fault_mem_recommendation,fault_mem_recommendation,100,44,20,2026-06-07 15:18:18,2026-06-07 16:07:49,0.0
+fault_delay_cart_repeat_500ms,fault_delay_cart_repeat_500ms,80,44,41,2026-06-07 19:17:39,2026-06-07 19:57:10,0.0
+fault_kill_product_repeat,fault_kill_product_repeat,80,44,14,2026-06-07 20:32:25,2026-06-07 21:11:55,0.0
+test_all_signal_observed,normal_valid+fault_cpu_frontend+fault_mem_recommendation+fault_delay_cart_repeat_500ms+fault_kill_product_repeat,420,44,98,,,
+test_no_delay_signal_observed,normal_valid+fault_cpu_frontend+fault_mem_recommendation+fault_kill_product_repeat,340,44,57,,,
+test_cpu_frontend_signal_observed,normal_valid+fault_cpu_frontend,160,44,23,,,
+test_mem_recommendation_signal_observed,normal_valid+fault_mem_recommendation,160,44,20,,,
+test_delay_cart_repeat_500ms_signal_observed,normal_valid+fault_delay_cart_repeat_500ms,140,44,41,,,
+test_kill_product_repeat_signal_observed,normal_valid+fault_kill_product_repeat,140,44,14,,,

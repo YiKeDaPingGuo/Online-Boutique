@@ -1,0 +1,11 @@
+frontend_latency
+cartservice_latency
+checkoutservice_latency
+productcatalogservice_latency
+recommendationservice_latency
+paymentservice_latency
+currencyservice_latency
+shippingservice_latency
+emailservice_latency
+adservice_latency
+redis-cart_latency

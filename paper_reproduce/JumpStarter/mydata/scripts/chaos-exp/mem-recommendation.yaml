@@ -1,0 +1,17 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: StressChaos
+metadata:
+  name: mem-stress-recommendation
+  namespace: chaos-mesh
+spec:
+  mode: all
+  selector:
+    namespaces:
+      - onlineboutique
+    labelSelectors:
+      app: recommendationservice
+  stressors:
+    memory:
+      workers: 1
+      size: "128MB"
+  duration: "10m"

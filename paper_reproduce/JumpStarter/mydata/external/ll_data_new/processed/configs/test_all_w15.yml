@@ -1,0 +1,42 @@
+﻿sample_score_method:
+  lesinn:
+    phi: 10
+    t: 5
+  moving_average:
+    window: 7
+    stride: 1
+anomaly_scoring:
+  anomaly_score_example:
+    percentage: 90
+    topn: 2
+global:
+  random_state: 42
+data:
+  path: '../mydata/external/ll_data_new/processed/data/test_all.csv'
+  label_path: '../mydata/external/ll_data_new/processed/label/test_all.csv'
+  save_path: '../mydata/external/ll_data_new/processed/result/test_all_w15'
+  row_begin: 0
+  row_end: 78
+  col_begin: 0
+  col_end: 22
+  rec_windows_per_cycle: 3
+  header: null
+  reconstruct:
+    window: 15
+    stride: 7
+  detect:
+    window: 7
+    stride: 1
+detector_arguments:
+  workers: 1
+  anomaly_scoring: 'anomaly_score_example'
+  sample_score_method: 'moving_average_score'
+  cluster_threshold: 0.01
+  sample_rate: 0.6
+  latest_windows: 20
+  scale: 5
+  rho: 0.1
+  sigma: 0.5
+  retry_limit: 20
+  without_grouping: one_by_one
+  without_localize_sampling: true
