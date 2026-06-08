@@ -1,0 +1,61 @@
+# 一次性网络延迟实验：对 frontend 注入 200ms 延迟 + 10ms 抖动，持续 2 分钟
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: network-delay-frontend
+  namespace: default
+spec:
+  action: delay
+  mode: all
+  duration: 2m
+  selector:
+    namespaces:
+      - default
+    labelSelectors:
+      app: frontend
+  delay:
+    latency: 200ms
+    jitter: 10ms
+    correlation: "50"
+---
+# 定时网络延迟实验：每 10 分钟注入一次延迟
+apiVersion: chaos-mesh.org/v1alpha1
+kind: Schedule
+metadata:
+  name: schedule-network-delay
+  namespace: default
+spec:
+  schedule: "@every 10m"
+  type: "NetworkChaos"
+  historyLimit: 3
+  networkChaos:
+    action: delay
+    mode: all
+    duration: 1m
+    selector:
+      namespaces:
+        - default
+      labelSelectors:
+        app: frontend
+    delay:
+      latency: 300ms
+      jitter: 50ms
+---
+# 网络丢包实验：30% 丢包率，持续 1 分钟
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: network-loss
+  namespace: default
+spec:
+  action: loss
+  mode: all
+  duration: 1m
+  selector:
+    namespaces:
+      - default
+    labelSelectors:
+      app: frontend
+  loss:
+    loss: "30"
+    correlation: "25"

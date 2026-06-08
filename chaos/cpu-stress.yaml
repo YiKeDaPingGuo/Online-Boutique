@@ -1,0 +1,60 @@
+# CPU 压力实验：对 productcatalogservice 注入 CPU 负载（1 worker，80% 负载，持续 60 秒）
+apiVersion: chaos-mesh.org/v1alpha1
+kind: StressChaos
+metadata:
+  name: cpu-stress-productcatalog
+  namespace: default
+spec:
+  mode: one
+  duration: 60s
+  selector:
+    namespaces:
+      - default
+    labelSelectors:
+      app: productcatalogservice
+  stressors:
+    cpu:
+      workers: 1
+      load: 80
+---
+# 定时 CPU 压力实验：每 15 分钟压一次 recommendationservice
+apiVersion: chaos-mesh.org/v1alpha1
+kind: Schedule
+metadata:
+  name: schedule-cpu-stress
+  namespace: default
+spec:
+  schedule: "@every 15m"
+  type: "StressChaos"
+  historyLimit: 3
+  stressChaos:
+    mode: one
+    duration: 45s
+    selector:
+      namespaces:
+        - default
+      labelSelectors:
+        app: recommendationservice
+    stressors:
+      cpu:
+        workers: 1
+        load: 90
+---
+# 内存压力实验：对 recommendationservice 分配 256MB 内存，持续 60 秒
+apiVersion: chaos-mesh.org/v1alpha1
+kind: StressChaos
+metadata:
+  name: memory-stress-recommendation
+  namespace: default
+spec:
+  mode: one
+  duration: 60s
+  selector:
+    namespaces:
+      - default
+    labelSelectors:
+      app: recommendationservice
+  stressors:
+    memory:
+      workers: 1
+      size: 256MB
