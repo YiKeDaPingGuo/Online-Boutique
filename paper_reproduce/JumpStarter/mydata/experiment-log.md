@@ -1,0 +1,131 @@
+# Online Boutique JumpStarter 实验记录
+
+## 实验 1：正常训练集
+- 文件名：normal_train.csv
+- 采集开始时间：2026-06-07 11:55:32
+- 采集结束时间：2026-06-07 12:55:03
+- 是否注入故障：否
+- 故障开始时间：无
+- 故障结束时间：无
+- 故障类型：normal
+- 故障对象：无
+- 数据点数量：120
+- 备注：系统正常运行，不注入故障、不重启服务。
+
+## 实验 2：正常验证集
+- 文件名：normal_valid.csv
+- 采集开始时间：2026-06-07 13:03:16
+- 采集结束时间：2026-06-07 13:32:46
+- 是否注入故障：否
+- 故障开始时间：无
+- 故障结束时间：无
+- 故障类型：normal
+- 故障对象：无
+- 数据点数量：60
+- 备注：系统正常运行，不注入故障、不重启服务。
+
+## 实验 3：CPU 故障（frontend）
+- 文件名：fault_cpu_frontend.csv
+- 采集开始时间：2026-06-07 14:13:22
+- 采集结束时间：2026-06-07 15:02:53
+- 是否注入故障：是
+- 故障开始时间：2026-06-07 14:33:28
+- 故障结束时间：2026-06-07 14:43:28
+- 故障类型：CPU stress
+- 故障对象：frontend
+- 故障持续时间：600 秒（10 分钟）
+- 故障前等待时间：1200 秒（20 分钟）
+- 数据点数量：100
+- Chaos Mesh 资源：stresschaos.chaos-mesh.org/cpu-stress-frontend
+- Chaos Mesh 脚本：microservices-demo/chaos-exp/run_cpu_frontend.ps1
+- 终端命令：powershell -ExecutionPolicy Bypass -File .\chaos-exp\run_cpu_frontend.ps1
+- 脚本开始时间：2026-06-07 14:13:28
+- 备注：frontend CPU stress；故障删除后 collector 继续运行，用于记录恢复期。
+
+## 实验 4：Memory 故障（recommendationservice）
+- 文件名：fault_mem_recommendation.csv
+- 采集开始时间：2026-06-07 15:18:18
+- 采集结束时间：2026-06-07 16:07:49
+- 是否注入故障：是
+- 故障开始时间：2026-06-07 15:38:26
+- 故障结束时间：2026-06-07 15:48:26
+- 故障类型：memory stress
+- 故障对象：recommendationservice
+- 故障持续时间：600 秒（10 分钟）
+- 故障前等待时间：1200 秒（20 分钟）
+- 数据点数量：100
+- Chaos Mesh 资源：stresschaos.chaos-mesh.org/mem-stress-recommendation
+- Chaos Mesh 脚本：microservices-demo/chaos-exp/run_mem_recommendation.ps1
+- 终端命令：powershell -ExecutionPolicy Bypass -File .\chaos-exp\run_mem_recommendation.ps1
+- 脚本开始时间：2026-06-07 15:18:26
+- 备注：recommendationservice memory stress；故障删除后 collector 继续运行，用于记录恢复期。
+
+## 实验 5：重复 Network Delay 故障（cartservice，500ms）
+- 文件名：fault_delay_cart_repeat_500ms.csv
+- 采集开始时间：2026-06-07 19:17:39
+- 采集结束时间：2026-06-07 19:57:10
+- 是否注入故障：是
+- 故障类型：Network delay
+- 故障对象：cartservice
+- 故障方式：500ms delay，单次持续 120 秒，重复 3 次
+- 故障前正常等待时间：600 秒（10 分钟）
+- 每轮恢复间隔：300 秒（5 分钟）
+- 数据点数量：80
+- CSV 规模：80 个数据点 × 56 列（含 timestamp）
+- 采样间隔：基本 30 秒
+- 缺失值：0
+- 重复时间戳：0
+- 原始故障段：
+  - cycle 1：2026-06-07 19:29:14 至 2026-06-07 19:31:15
+  - cycle 2：2026-06-07 19:36:25 至 2026-06-07 19:38:26
+  - cycle 3：2026-06-07 19:45:03 至 2026-06-07 19:47:04
+- 建议用于 label 的扩展异常段：
+  - cycle 1：2026-06-07 19:29:14 至 2026-06-07 19:34:15
+  - cycle 2：2026-06-07 19:36:25 至 2026-06-07 19:41:26
+  - cycle 3：2026-06-07 19:45:03 至 2026-06-07 19:52:04
+- 主要异常指标：frontend_request_rate、cartservice_request_rate 下降；frontend_error_rate、cartservice_error_rate 上升；cartservice_cpu 和 cartservice_mem 波动。
+- 指标现象：latency 指标在该实验中未明显变化，异常主要体现在请求速率和错误速率上。
+- Chaos Mesh 资源：networkchaos.chaos-mesh.org/delay-cart-repeat
+- Chaos Mesh 脚本：microservices-demo/chaos-exp/run_delay_cart_repeat.ps1
+- 终端命令：powershell -ExecutionPolicy Bypass -File .\chaos-exp\run_delay_cart_repeat.ps1
+- 脚本开始时间：2026-06-07 19:19:14
+- 脚本结束时间：2026-06-07 19:53:01
+- Chaos 日志文件：microservices-demo/chaos-exp/delay_cart_repeat_log.txt
+- 资源清理确认：每轮删除 NetworkChaos 后均显示 `No resources found in chaos-mesh namespace.`
+- 备注：该文件作为 network delay 的正式故障数据保留。由于 rate-window=2m 且 network delay 会造成超时、重试和积压，异常影响存在 1-5 分钟滞后，label 建议使用扩展异常段。
+
+## 实验 6：重复 Pod Kill 故障（productcatalogservice）
+- 文件名：fault_kill_product_repeat.csv
+- 采集开始时间：2026-06-07 20:32:25
+- 采集结束时间：2026-06-07 21:11:55
+- 是否注入故障：是
+- 故障类型：Pod Kill
+- 故障对象：productcatalogservice
+- 故障方式：瞬时 Pod Kill，重复 3 次
+- 故障前正常等待时间：600 秒（10 分钟）
+- 每轮恢复间隔：300 秒（5 分钟）
+- 数据点数量：80
+- CSV 规模：80 个数据点 × 56 列（含 timestamp）
+- 采样间隔：基本 30 秒
+- 原始故障触发点：
+  - cycle 1：2026-06-07 20:42:32
+  - cycle 2：2026-06-07 20:47:53
+  - cycle 3：2026-06-07 20:53:15
+- 建议用于 label 的扩展异常段：
+  - cycle 1：2026-06-07 20:42:32 至 2026-06-07 20:44:32
+  - cycle 2：2026-06-07 20:47:53 至 2026-06-07 20:49:53
+  - cycle 3：2026-06-07 20:53:15 至 2026-06-07 20:55:15
+- Pod 重建结果：
+  - cycle 1：新 Pod `productcatalogservice-fb49fc9cc-zkv6h`，Running/Ready，约 21 秒
+  - cycle 2：新 Pod `productcatalogservice-fb49fc9cc-pvchb`，Running/Ready，约 21 秒
+  - cycle 3：新 Pod `productcatalogservice-fb49fc9cc-gtqgm`，Running/Ready，约 25 秒
+- 主要异常指标：productcatalogservice_mem 重置后回升；frontend_error_rate 短时间上升；第三轮中 productcatalogservice_error_rate 和 frontend_error_rate 影响更明显。
+- 指标现象：Kubernetes 很快完成 Pod 重建，服务没有长时间不可用，但重启和恢复期间用户侧请求出现短时间错误率上升。
+- Chaos Mesh 资源：podchaos.chaos-mesh.org/kill-product-repeat
+- Chaos Mesh 脚本：microservices-demo/chaos-exp/run_kill_product_repeat.ps1
+- 终端命令：powershell -ExecutionPolicy Bypass -File .\chaos-exp\run_kill_product_repeat.ps1
+- 脚本开始时间：2026-06-07 20:32:31
+- 脚本结束时间：2026-06-07 20:53:42
+- Chaos 日志文件：microservices-demo/chaos-exp/kill_product_repeat_log.txt
+- 资源清理确认：每轮均显示 `Delete PodChaos object...`、`PodChaos deleted.`，并等待 productcatalogservice pod 重新 Ready，未出现上一个 PodChaos 残留影响下一轮的问题。
+- 备注：该文件作为 repeated Pod Kill 的正式故障数据保留。Pod Kill 是瞬时故障，label 不应标成长持续故障，建议使用“故障触发点 + 1-2 分钟恢复窗口”。

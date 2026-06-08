@@ -1,0 +1,40 @@
+# Python cache and build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Local environments
+.env
+.venv/
+env/
+venv/
+ENV/
+.python-version
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Runtime logs and ad-hoc detector outputs
+*.log
+detector/result*.txt
+detector/*_rec.txt
+detector/*_score.txt
+
+# Temporary files
+*.tmp
+*.bak
+*.swp

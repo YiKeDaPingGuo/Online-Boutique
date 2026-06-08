@@ -1,0 +1,42 @@
+﻿sample_score_method:
+  lesinn:
+    phi: 10
+    t: 5
+  moving_average:
+    window: 2
+    stride: 1
+anomaly_scoring:
+  anomaly_score_example:
+    percentage: 90
+    topn: 2
+global:
+  random_state: 42
+data:
+  path: '../mydata/external/partner_hyx_data/processed/data/train_plus_test_full.csv'
+  label_path: '../mydata/external/partner_hyx_data/processed/label/train_plus_test_full.csv'
+  save_path: '../mydata/external/partner_hyx_data/processed/result/train_plus_test_full_w5'
+  row_begin: 0
+  row_end: 2327
+  col_begin: 0
+  col_end: 156
+  rec_windows_per_cycle: 3
+  header: null
+  reconstruct:
+    window: 5
+    stride: 2
+  detect:
+    window: 2
+    stride: 1
+detector_arguments:
+  workers: 1
+  anomaly_scoring: 'anomaly_score_example'
+  sample_score_method: 'moving_average_score'
+  cluster_threshold: 0.01
+  sample_rate: 0.6
+  latest_windows: 10
+  scale: 5
+  rho: 0.1
+  sigma: 0.5
+  retry_limit: 20
+  without_grouping: one_by_one
+  without_localize_sampling: true

@@ -1,0 +1,8 @@
+file,processed_data,processed_label,rows,columns,start_time,end_time,positive_labels,missing_values_before_fill,duplicate_timestamps,fault_type,target_service
+normal_train.csv,data/normal_train.csv,label/normal_train.csv,120,55,2026-06-07 11:55:32,2026-06-07 12:55:03,0,0,0,normal,
+normal_valid.csv,data/normal_valid.csv,label/normal_valid.csv,60,55,2026-06-07 13:03:16,2026-06-07 13:32:46,0,0,0,normal,
+fault_cpu_frontend.csv,data/fault_cpu_frontend.csv,label/fault_cpu_frontend.csv,100,55,2026-06-07 14:13:22,2026-06-07 15:02:53,20,0,0,cpu_stress,frontend
+fault_mem_recommendation.csv,data/fault_mem_recommendation.csv,label/fault_mem_recommendation.csv,100,55,2026-06-07 15:18:18,2026-06-07 16:07:49,20,0,0,memory_stress,recommendationservice
+fault_delay_cart_repeat_500ms.csv,data/fault_delay_cart_repeat_500ms.csv,label/fault_delay_cart_repeat_500ms.csv,80,55,2026-06-07 19:17:39,2026-06-07 19:57:10,34,0,0,network_delay_500ms_repeat,cartservice
+fault_kill_product_repeat.csv,data/fault_kill_product_repeat.csv,label/fault_kill_product_repeat.csv,80,55,2026-06-07 20:32:25,2026-06-07 21:11:55,12,0,0,pod_kill_repeat,productcatalogservice
+test_all.csv,data/test_all.csv,label/test_all.csv,420,55,,,86,0,0,mixed,frontend/recommendationservice/cartservice/productcatalogservice

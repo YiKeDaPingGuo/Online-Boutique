@@ -1,0 +1,2 @@
+train_rows,test_rows,full_columns,active_columns,top30_columns,test_positive_labels,test_negative_labels,segment_count,anomaly_segment_count,anomaly_segment_min,anomaly_segment_median,anomaly_segment_max,normal_segment_median
+674,1653,156,77,30,539,1114,231,115,1,6.0,9,9.0

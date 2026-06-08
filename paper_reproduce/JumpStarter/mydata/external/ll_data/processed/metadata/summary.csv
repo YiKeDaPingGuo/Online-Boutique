@@ -1,0 +1,7 @@
+file,processed_data,processed_label,rows,columns,start_time,end_time,positive_labels,fault_type,target_service
+normal_train.csv,data/normal_train.csv,label/normal_train.csv,61,22,2026-06-05 12:36:43,2026-06-05 13:06:43,0,normal,
+normal_valid.csv,data/normal_valid.csv,label/normal_valid.csv,21,22,2026-06-05 12:56:43,2026-06-05 13:06:43,0,normal,
+fault_cpu_frontend.csv,data/fault_cpu_frontend.csv,label/fault_cpu_frontend.csv,29,22,2026-06-05 13:16:00,2026-06-05 13:30:00,15,cpu_stress,frontend
+fault_delay_cart.csv,data/fault_delay_cart.csv,label/fault_delay_cart.csv,29,22,2026-06-05 13:33:00,2026-06-05 13:47:00,13,network_delay,cartservice
+fault_kill_product.csv,data/fault_kill_product.csv,label/fault_kill_product.csv,29,22,2026-06-05 13:49:00,2026-06-05 14:03:00,15,pod_kill,productcatalogservice
+test_all.csv,data/test_all.csv,label/test_all.csv,108,22,,,43,mixed,frontend/cartservice/productcatalogservice

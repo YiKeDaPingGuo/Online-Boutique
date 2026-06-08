@@ -1,0 +1,42 @@
+sample_score_method:
+  lesinn:
+    phi: 10
+    t: 5
+  moving_average:
+    window: 10
+    stride: 2
+anomaly_scoring:
+  anomaly_score_example:
+    percentage: 90
+    topn: 2
+global:
+  random_state: 42
+data:
+  path: '../mydata/processed/signal_log_based/data/test_delay_cart_repeat_500ms_signal.csv'
+  label_path: '../mydata/processed/signal_log_based/label/test_delay_cart_repeat_500ms_signal.csv'
+  save_path: '../mydata/processed/signal_log_based/result/test_delay_cart_repeat_500ms_signal'
+  row_begin: 0
+  row_end: 140
+  col_begin: 0
+  col_end: 44
+  rec_windows_per_cycle: 3
+  header: null
+  reconstruct:
+    window: 20
+    stride: 20
+  detect:
+    window: 10
+    stride: 2
+detector_arguments:
+  workers: 1
+  anomaly_scoring: 'anomaly_score_example'
+  sample_score_method: 'moving_average_score'
+  cluster_threshold: 0.01
+  sample_rate: 0.5
+  latest_windows: 20
+  scale: 5
+  rho: 0.1
+  sigma: 0.5
+  retry_limit: 20
+  without_grouping: one_by_one
+  without_localize_sampling: true

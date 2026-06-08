@@ -1,0 +1,7 @@
+dataset,rows,columns,positive_labels,negative_labels
+test_only_full,1653,156,539,1114
+train_plus_test_full,2327,156,539,1788
+test_only_active,1653,77,539,1114
+train_plus_test_active,2327,77,539,1788
+test_only_top30,1653,30,539,1114
+train_plus_test_top30,2327,30,539,1788
